@@ -1,9 +1,9 @@
 import os
 import subprocess
-import torch
+#import torch
 import numpy as np
 from torch import Tensor
-from pathlib import Path
+#from pathlib import Path
 from typing import List, Optional, Sequence, Union, Any, Callable
 from torchvision.datasets.folder import default_loader
 from pytorch_lightning import LightningDataModule
@@ -204,7 +204,7 @@ class VAEDataset(LightningDataModule):
                     download=False,
                     transform=val_transforms)
             
-            if stage == "test":
+            #if stage == "test":
                 self.test_dataset = CelebA(
                     root=self.data_dir,
                     split="test",
@@ -242,7 +242,7 @@ class VAEDataset(LightningDataModule):
             self.val_dataset,
             batch_size=self.val_batch_size,
             shuffle=False,
-            num_workers=self.num_workers,
+            num_workers= self.num_workers,
             pin_memory=self.pin_memory,
         )
     

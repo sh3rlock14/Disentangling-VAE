@@ -5,26 +5,27 @@ model_params:
 
 data_params:
   data_path: "D:/LaureaMagistrale/PrimoAnno/Secondo_Semestre/DeepLearning/datasets/CelebA"
-  train_batch_size: 32
+  train_batch_size: 64
   val_batch_size: 64
-  test_batch_size: 64
+  test_batch_size: 16
   patch_size: 64
   num_workers: 0
 
 exp_params:
   LR: 0.005
-  weight_decay: 0.0
+  weight_decay: 0.003
   scheduler_gamma: 0.95
   kld_weight: 0.00025
-  manual_seed: 1265
+  manual_seed: 42
 
 trainer_params:
   accelerator: 'gpu'
   devices: 1
-  max_epochs: 5
-  max_time: '00:00:03:00'
+  max_epochs: 2
+  max_time: '00:00:05:00'
 
 logging_params:
+  enable_wandb: True
   save_dir: "logs/"
-  manual_seed: 1265
+  manual_seed: 42
   name: "VanillaVAE"
