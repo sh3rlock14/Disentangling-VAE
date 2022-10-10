@@ -1,6 +1,7 @@
 #import os
 #import math
 #import torch
+import wandb
 from torch import optim
 from models import BaseVAE
 from models.types_ import *
@@ -90,14 +91,25 @@ class VAEXperiment(pl.LightningModule):
 
         
         # Log images
-        #self.logger.log_image(key="recon", images = [make_grid(test_input, nrow=12).data]) # DA TESTARE
-        self.logger.log_image(key="recon", images = [make_grid(imgs_recon, nrow=12).data])
+        wandb.log({"original" : wandb.Image(make_grid(test_input, nrow=12).data)}, commit=False)
+        wandb.log({"recon" : wandb.Image(make_grid(imgs_recon, nrow=12).data)},    commit=False)
+        
+        try:
+            wandb.log({"samples" : wandb.Image(make_grid(samples, nrow=12).data)})
+        except:
+            wandb.log()
+
+        """
+        self.logger.log_image(key="original", images = [make_grid(test_input, nrow=12).data], commit=False) # DA TESTARE
+        self.logger.log_image(key="recon", images = [make_grid(imgs_recon, nrow=12).data], commit=False)
         
         try:
             self.logger.log_image(key="samples", images = [make_grid(samples, nrow=12).data])
         except Warning:
             pass
 
+        """
+        
 
     def configure_optimizers(self):
 

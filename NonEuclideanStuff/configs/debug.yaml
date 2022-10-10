@@ -1,0 +1,18 @@
+data_params:
+  dataset: 'FAUST_2500'
+  num_points: 2100
+  train_batch_size: 16
+
+model_params:
+  model_name: "PointNetVAE"
+  latent_dim: 256
+  conv_out_dim: 512
+  pose_dim: 64
+
+exp_params:
+  LR: 2e-5
+  locall_th: 0.1
+  num_iters: 20000
+  vbs: 20
+  opt_procedure_ths: [7000, 10000, 15000]
+
