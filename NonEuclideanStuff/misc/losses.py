@@ -1,8 +1,8 @@
-from torch import stack, cat, mean, exp, rand, zeros
+from torch import stack, cat, mean, sum, exp, rand, zeros
 from torch.nn.modules import loss
 from misc.losses import *
 from misc.utils import pairwise_dists
-from utils.distances import calc_geodesic_dist_matrix, calc_euclidean_dist_matrix, distance_GIH
+from utils.distances import calc_euclidean_dist_matrix, distance_GIH
 # Define 3 losses:
 
 # 1. Compute loss for global Euclidean distortions on data points

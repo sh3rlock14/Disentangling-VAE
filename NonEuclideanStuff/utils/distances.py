@@ -11,7 +11,7 @@ import os
 from torch_scatter import scatter_add
 
 
-SAVE_MEMORY = False
+SAVE_MEMORY = True
 
 def distance_GIH(V, T, t=1e-1):
     
@@ -212,3 +212,14 @@ def VF_adjacency_matrix(V, F):
 
     VF_adj[v_idx, f_idx] = 1
     return VF_adj
+
+def calc_euclidean_dist_matrix(x):
+    #OH: x contains the coordinates of the mesh,
+    #x dimensions are [batch_size x num_nodes x 3]
+
+    #x = x.transpose(2,1)
+    r = torch.sum(x ** 2, dim=2).unsqueeze(2)  # OH: [batch_size  x num_points x 1]
+    r_t = r.transpose(2, 1) # OH: [batch_size x 1 x num_points]
+    inner = torch.bmm(x,x.transpose(2, 1))
+    D = F.relu(r - 2 * inner + r_t)**0.5  # OH: the residual numerical error can be negative ~1e-16
+    return D
