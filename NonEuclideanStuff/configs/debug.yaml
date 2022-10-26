@@ -1,7 +1,8 @@
 data_params:
   dataset: 'FAUST_2500'
+  data_path: "D:/LaureaMagistrale/PrimoAnno/Secondo_Semestre/DeepLearning/datasets/FAUST-2500"
   num_points: 2100
-  train_batch_size: 5
+  train_batch_size: 4
 
 model_params:
   model_name: "PointNetVAE"
@@ -16,7 +17,32 @@ model_params:
 exp_params:
   LR: 2.e-5
   local_th: 0.1
-  num_iters: 1000
-  vbs: 8
-  opt_procedure_ths: [70, 500, 1500]
+  num_iters: 200
+  vbs: 20
+  opt_procedure_ths: [70, 100, 150]
+  manual_seed: 42
+  latent_dim: 256
+  pose_dim: 64
+  curr_device: 'cuda'
+  beta: 1
+
+trainer_params:
+  accelerator: 'gpu'
+  devices: 1
+  max_time: '00:00:15:00'
+
+training_params:
+  resume_train: False
+  ckpt_path: null
+  patience: 5
+
+
+logging_params:
+  enable_wandb: True
+  save_dir: "D:/LaureaMagistrale/PrimoAnno/Secondo_Semestre/DeepLearning/Disentangling VAE/NonEuclideanStuff/logs"
+  manual_seed: 42
+  model_name: "PointNetVAE"
+  wandb_key:  "b2f43af624f34e36163a25d9c7a60d3385d7d46a"
+  wandb_entity: "mattiacapparella"
+  wandb_project: "DLAI AA 2022 - Disentangling VAE"
 

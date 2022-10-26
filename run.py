@@ -50,7 +50,7 @@ if __name__ == '__main__':
     model = vae_models[config['model_params']['name']](**config['model_params'])
 
 
-    """
+    
     data = VAEDataset(**config['data_params'], pin_memory=config['trainer_params']['devices'] != 0)
     #data.setup() # CALL IT MANUALLY JUST FOR DEBUGGING. THEN IT CAN BE REMOVED
     
@@ -128,7 +128,7 @@ if __name__ == '__main__':
         trainer.fit(experiment,
                     datamodule = data,
                     ckpt_path=config['training_params']['ckpt_path'])
-    """
+    
     
 
 
