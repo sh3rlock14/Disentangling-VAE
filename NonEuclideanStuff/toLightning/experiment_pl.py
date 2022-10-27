@@ -179,12 +179,13 @@ class DLAIExperiment(pl.LightningModule):
                 # FOR MANUAL OPTIMIZATION set to False
                 self.automatic_optimization=True
 
-                self.save_hyperparameters(ignore=['model'])
-
                 self.model = model
                 self.params = params
                 self.curr_device = None
                 self.hold_graph = False
+
+                #self.save_hyperparameters({'exp_params' : self.params}, ignore=['model'])
+                #self.save_hyperparameters(ignore=['model'])
 
                 try:
                     self.hold_graph = self.params['retain_first_packpass']
@@ -262,8 +263,6 @@ class DLAIExperiment(pl.LightningModule):
             return loss
         
         # BY DEFAULT
-        #losses.extend(loss1)
-
         loss_dict = dict(zip([loss_keys[1]], [loss1.item()] ))
         self.log_dict(loss_dict, rank_zero_only=True)
 

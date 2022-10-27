@@ -1,12 +1,13 @@
-program: NonEuclideanStuff/train_sweeps.py
-method: random
+program: NonEuclideanStuff/run_with_sweeps.py
+method: grid
 metric:
   name: rec_loss
   goal: minimize
 parameters:
   exp_params:
     parameters:
-      LR:
-        distribution: log_uniform_values
-        min: 2.e-5
-        max: 1.e-1
+      beta:
+        values:
+        - 1
+        - 4
+        - 10
