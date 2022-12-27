@@ -29,7 +29,7 @@ def deep_update(base_cfg, sweep_cfg):
 sweepConfigPath = "NonEuclideanStuff/sweep_configs/sweep_debug.yaml"
 defaultConfigPath = "NonEuclideanStuff/configs/debug.yaml"
 projectName = "DLAI AA 2022 - Disentangling VAE"
-nTrials = 3
+nRuns = 3
 
 
 
@@ -80,4 +80,4 @@ sweep_config = deep_update(default_config, sweep_config)
 sweep_id = wandb.sweep(sweep=sweep_config, project = projectName)
 
 # 🐝 Step 4: Call to `wandb.agent` to start a sweep
-wandb.agent(sweep_id, count = nTrials)
+wandb.agent(sweep_id, count=nRuns)

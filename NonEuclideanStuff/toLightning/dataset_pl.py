@@ -92,7 +92,7 @@ class Faust2500(InMemoryDataset):
                 # TODO
                 # CONTROLLARE IL PERCHE' DI QUESTO CONTROLLO:
                 if train:
-                    self.data, self.slices = self.collate([self.get(i) for i in range(0,40)]) # DA RESETTARE A 80
+                    self.data, self.slices = self.collate([self.get(i) for i in range(0,80)]) # DA RESETTARE A 80
                 else:
                     self.data, self.slices = self.collate([self.get(i) for i in range(80,100)])
                 

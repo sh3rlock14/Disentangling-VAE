@@ -91,7 +91,8 @@ with open(args.base_config, 'r') as file:
 
 
 
-base_config = deep_update(base_config, configToDict(unknown[0]))
+if unknown:
+    base_config = deep_update(base_config, configToDict(unknown[0]))
 
 """
 with open(args.sweep_config, 'r') as file:
@@ -102,8 +103,9 @@ with open(args.sweep_config, 'r') as file:
             print(exc)
 
 """
-    
-wandb.init(config=base_config)
+
+
+wandb.init(config=base_config, project="DLAI AA 2022 - Disentangling VAE")
 
 
 # Update wandb config
@@ -147,26 +149,31 @@ def main():
     # ckpt formatting
     model_ckpt_name = wandb.config['logging_params']['model_name']
     NUM_ITERS = wandb.config['exp_params']['num_iters'] * wandb.config['exp_params']['vbs']
-    NUM_MODELS_TO_SAVE = 10   
+    NUM_MODELS_TO_SAVE = 3
 
-    trainer = Trainer(
-        log_every_n_steps=100,
-        logger = wandb_logger,
-        callbacks = [
-            ModelCheckpoint(
+    
+    callbacks = [
+        ModelCheckpoint(
                             save_top_k=2,
                             dirpath = os.path.join(wandb_logger.save_dir, "checkpoints"),
                             filename = model_ckpt_name + '-{step}-{loss_rec:.2f}', 
-                            monitor = "loss_rec",
+                            monitor = "rec_loss",
                             mode = "min",
                             every_n_train_steps = NUM_ITERS // NUM_MODELS_TO_SAVE,
                             save_on_train_epoch_end=True # cannot be False since there's no Validation
                         ),
                         LearningRateMonitor(logging_interval='epoch')
-        ],
+    ]
+    
+    
+    trainer = Trainer(
+        log_every_n_steps=1000,
+        logger = wandb_logger,
         max_steps= NUM_ITERS,
         num_sanity_val_steps=0,
         limit_val_batches=0,  # disable validation
+        enable_checkpointing=True,
+        callbacks=callbacks,
         **wandb.config['trainer_params']
     )
 
@@ -191,3 +198,5 @@ if __name__ == '__main__':
 
     print(f'Starting a run with {wandb.config}')
     main()
+    print("Ending!")
+    wandb.finish()

@@ -17,9 +17,9 @@ model_params:
 exp_params:
   LR: 2.e-5
   local_th: 0.1
-  num_iters: 200
-  vbs: 20
-  opt_procedure_ths: [70, 100, 150]
+  num_iters: 2000
+  vbs: 10
+  opt_procedure_ths: [700, 1000000, 1500000]
   manual_seed: 42
   latent_dim: 256
   pose_dim: 64
@@ -29,7 +29,7 @@ exp_params:
 trainer_params:
   accelerator: 'gpu'
   devices: 1
-  max_time: '00:00:08:00'
+#  max_time: '00:00:10:00'
 
 training_params:
   resume_train: False
